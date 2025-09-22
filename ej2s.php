@@ -17,8 +17,13 @@
     $pos=strpos($despues2,$punto);
     $ip3=substr($despues2, 0, $pos);
     $despues3=substr($despues2,$pos+1);
-    printf("La IP $ip en decimal es %b.%b.%b.%b",$ip1,$ip2,$ip3,$despues3);
 
+    //Transformación a decimal
+    $ip1=str_pad(decbin($ip1),8,"0",STR_PAD_LEFT);
+    $ip2=str_pad(decbin($ip2),8,"0",STR_PAD_LEFT);
+    $ip3=str_pad(decbin($ip3),8,"0",STR_PAD_LEFT);
+    $despues3=str_pad(decbin($despues3),8,"0",STR_PAD_LEFT);
+    echo "La IP $ip en decimal es $ip1.$ip2.$ip3.$despues3 <br>";
 ?>
 </BODY>
 </HTML>
