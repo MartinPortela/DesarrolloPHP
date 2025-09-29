@@ -1,5 +1,5 @@
 <HTML>
-<HEAD><TITLE> EJ1 Arrays </TITLE></HEAD>
+<HEAD><TITLE> EJ2 Arrays </TITLE></HEAD>
 <BODY>
 <?php
     $impar=1;
