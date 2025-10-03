@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <title>Práctica CSS3</title>
+ <link rel="stylesheet" href="miestilo_nombrealumno.css">
+ <style>
+    body{
+        background: linear-gradient(to right, #ffecd2, #fcb69f);
+        font-family: Arial, sans-serif;
+    }
+    h1{
+        text-align: center;
+        color: darkblue;
+        text-shadow: 2px 2px 5px gray;
+    }
+    p{
+         color: #333;
+        font-size: 18px;
+    }
+    .box{
+        width: 250px;
+        height: 100px;
+        margin: 20px auto;
+        background-color: lightblue;
+        border: 2px solid #333;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+        text-align: center;
+        line-height: 100px;
+    }
+
+    button{
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: dodgerblue;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        transition: background-color 0.5s ease;
+    }
+    button:hover{
+        background-color: darkblue;
+    }
+    .container div{
+        background-color: lightgreen;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .container{
+         display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+    }
+ </style>
+</head>
+<body>
+ <h1>Mi primera práctica con CSS3</h1>
+
+ <p>Este es un párrafo de ejemplo con estilos aplicados.</p>
+ <div class="box">Soy un cuadro con sombra</div>
+ <button>Haz clic aquí</button>
+ <div class="container">
+ <div>Elemento 1</div>
+ <div>Elemento 2</div>
+ <div>Elemento 3</div>
+ </div>
+</body>
+</html>
