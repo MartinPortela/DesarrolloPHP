@@ -1,6 +1,7 @@
 
 body{
-font-family: Arial, sans-serif;
+    /*Se ha visto un cambio en la letra de todo el documento*/
+font-family: Georgia, serif;
 background-color: #f4f6f9;
 color: #333;
 margin: 0;
@@ -11,6 +12,12 @@ background-color: #0d47a1;
 color: white;
 text-align: center;
 padding: 1.5rem;
+}
+.tarjeta{
+    border-style: dotted;
+    border-color: blueviolet;
+    padding: 20px;
+    text-shadow: red;
 }
 H1{
 margin: 0;
@@ -29,7 +36,8 @@ border-bottom: 2px solid #1565c0;
 }
 /* Listas */
 ul{
-list-style-type: square;
+list-style-type: circle;
+padding: 3px 70px;
 }
 li{
 margin: 0.5rem 0;
