@@ -1,0 +1,2 @@
+.card { width: 220px; height: 100px; border:2px solid #334155; background:#e2e8f0; display:grid; place-items:center;  
+border-radius: 12px;}

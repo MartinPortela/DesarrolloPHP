@@ -1,0 +1,22 @@
+.card { width: 140px; height: 70px; display:grid; place-items:center; margin:12px 0; background:#f9fafb; }
+
+.card.a {width: 200px;
+color: blue;
+border-width: 3px;
+border-color: black;
+border-style: solid;}
+
+.card.b{
+border-width: 4px;
+border-style: dotted;
+border-color: brown;
+}
+
+.card.c{
+    border-width: 10px;
+    border-style: ridge;
+    border-top-color: cadetblue;
+    border-bottom-color: cadetblue;
+    border-left-color: black;
+    border-right-color: black;
+}

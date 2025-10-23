@@ -1,0 +1,11 @@
+.box { width: 140px; height: 60px; display:grid; place-items:center; margin:10px 0; }
+
+.box.one{
+    border: 5px ridge cyan;
+}
+.box.two{
+    border: 7px dotted yellowgreen;
+}
+.box.three{
+    border: 6px double black;
+}
