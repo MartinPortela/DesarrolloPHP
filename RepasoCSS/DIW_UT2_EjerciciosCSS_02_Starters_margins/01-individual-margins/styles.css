@@ -1,0 +1,14 @@
+.card { width: 100px; height: 60px; background:#e0e0e0; display:grid; place-items:center; border:1px solid #bbb; }
+/* Aplica aquí los márgenes para .a, .b y .c */
+.a {
+    margin-top: 20px;
+    margin-left:10px;
+  }
+.b {
+    margin-top: 20px;
+    margin-left:10px;  
+}
+.c {
+    margin-top: 20px;
+    margin-left:10px;  
+}

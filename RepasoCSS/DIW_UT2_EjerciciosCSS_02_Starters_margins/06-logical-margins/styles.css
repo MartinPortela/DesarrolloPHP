@@ -1,0 +1,6 @@
+.item { writing-mode: horizontal-tb; background:#eef; border:1px solid #99a; 
+margin-inline-start: 12px;
+margin-inline-end: 12px;
+margin-block-start: 24px;
+margin-block-end: 24px;
+}

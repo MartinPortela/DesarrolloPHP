@@ -2,5 +2,9 @@
   padding:10px 16px;
   background:#111827;
   color:#fff;
- 
+  border-style: groove;
+}
+.btn:hover
+{
+  border-color: red;
 }

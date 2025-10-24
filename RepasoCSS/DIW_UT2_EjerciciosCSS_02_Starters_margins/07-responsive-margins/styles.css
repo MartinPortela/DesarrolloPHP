@@ -1,0 +1,23 @@
+.wrap { background:#f0fff4; border:1px solid #9ae6b4; min-height:120px; 
+}
+
+@media only screen and (max-width: 600px)
+{
+    .wrap{
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 768px)
+{
+    .wrap{
+        margin-top: 250px;
+    }
+}
+@media only screen and (min-width: 600px)
+{
+    .wrap
+    {
+        
+    }
+}
