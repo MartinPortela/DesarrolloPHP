@@ -8,7 +8,7 @@
         $nombre4 = limpiar_campos($_POST["nombre4"]);
         $numcartas = limpiar_campos($_POST["numcartas"]);
         $apuesta = limpiar_campos($_POST["apuesta"]);
-    }
+    
 
     $cartasC=[];
     $cartasD=[];
@@ -50,35 +50,11 @@
     hacerTabla($jugador4,$numcartas);
     echo "</tr>";
     echo "</table>";
-    $jugadores=array($nombre1,$nombre2,$nombre3,$nombre4);
-    $puntuacion=array($suma1,$suma2,$suma3,$suma4);
-        $cont=0;
-        if($suma1==7.5)
-        {
-            echo $nombre1." ha ganado con una puntuación de ".$suma1;
-            echo "<br>";
-            $cont=1;
-        }
-        if($suma2==7.5)
-        {
-            echo $nombre2." ha ganado con una puntuación de ".$suma2;
-            echo "<br>";
-            $cont=1;
-        }
-        if($suma3==7.5)
-        {
-            echo $nombre3." ha ganado con una puntuación de ".$suma3;
-            echo "<br>";
-            $cont=1;
-        }
-        if($suma4==7.5)
-        {
-            echo $nombre4." ha ganado con una puntuación de ".$suma4;
-            echo "<br>";
-            $cont=1;
-        }
-    if($cont==0)
-    {
-        
+    $jugadores=array($nombre1 => $suma1 ,$nombre2 => $suma2,$nombre3 => $suma3,$nombre4 => $suma4);
+    print_r($jugadores);
+    $ganadores=comprobarGanador($jugadores, $nombre1,$nombre2,$nombre3,$nombre4);
+    print_r($ganadores);
+    $premio=repartirPremio($apuesta, count($ganadores));
+    
     }
 ?>

@@ -144,10 +144,23 @@ function hacerTabla($jugador,$numcartas)
     }
 }
 
-function comprobarGanador($jugadores, $puntuacion)
+function comprobarGanador($jugadores,$nombre1,$nombre2,$nombre3,$nombre4)
 {
+    $mayor=0;
+    for ($i=1; $i <= 4; $i++) 
+    { 
+        if($jugadores[${"nombre$i"}]>$mayor && $jugadores[${"nombre$i"}]<=7.5)
+        {
+            $mayor=$jugadores[${"nombre$i"}];
+        }
+    }
     
+    return array_keys($jugadores, $mayor);
 }
 
+function repartirPremio($apuesta, $ganadores)
+{
+    return ($apuesta/$ganadores);
+}
 
 ?>
