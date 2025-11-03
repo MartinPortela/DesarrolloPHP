@@ -1,0 +1,5 @@
+Juan#9#0
+Pedro#5#0
+José#1#0
+Pepe#7#500
+TOTALPREMIOS#1#500

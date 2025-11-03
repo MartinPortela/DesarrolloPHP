@@ -38,12 +38,16 @@ function repartir(&$jugador,$suma,$numcartas,&$cartas)
         while($cartas[$carta][$valor]==null)
         {
             $valor=rand(1,10);
+            $carta=rand(0,3);
         }
         $jugador[$i]=$cartas[$carta][$valor];
         $cartas[$carta][$valor]=null;
         switch ($valor) {
-                    case 8 || 9 || 10:
-                        $suma+=0.5;
+                    case 8:
+                    case 9:
+                    case 10:
+                        $suma += 0.5;
+                        break;
                     
                     default:
                         $suma+=$valor;
