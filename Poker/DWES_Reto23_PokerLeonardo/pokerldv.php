@@ -24,57 +24,15 @@
         $tipoMano3=calcular_mano($mano3);
         $tipoMano4=calcular_mano($mano4);
         echo '<table border="1">';
-        echo "<tr>";
-        echo '<td style="text-align: center; vertical-align: middle; padding: 5px;">'.$nombre1."</td>";
-        hacerTabla($mano1);
-        echo "</tr>";
-        echo "<tr>";
-        echo '<td style="text-align: center; vertical-align: middle; padding: 5px;">'.$nombre2."</td>";
-        hacerTabla($mano2);
-        echo "</tr>";
-        echo "<tr>";
-        echo '<td style="text-align: center; vertical-align: middle; padding: 5px;">'.$nombre3."</td>";
-        hacerTabla($mano3);
-        echo "</tr>";
-        echo "<tr>";
-        echo '<td style="text-align: center; vertical-align: middle; padding: 5px;">'.$nombre4."</td>";
-        hacerTabla($mano4);
-        echo "</tr>";
+        for ($i=1; $i <=4 ; $i++) 
+        { 
+            hacerTabla(${"nombre$i"}, ${"mano$i"});
+        }
         echo "</table>";
 
         $jugadores=array($nombre1 => $tipoMano1, $nombre2 => $tipoMano2, $nombre3 => $tipoMano3, $nombre4 => $tipoMano4);
         $ganadores=comprobarGanador($jugadores);
         $max=max($jugadores);
-        if(count($ganadores)==0)
-        {
-            echo "No hay ganadores, el bote es de ".$bote;
-            $premio=0;
-        } else
-        {
-            switch ($max) 
-            {
-                case 2:
-                    echo "La jugada ganadores es pareja, no hay premio, el bote es de ".$bote."<br>";
-                    $premio=0;
-                    break;
-                case 2.5:
-                    $premio=repartirPremio($bote,count($ganadores),0.50);
-                    break;
-                case 3:
-                    $premio=repartirPremio($bote,count($ganadores),0.70);
-                    break;
-                case 4:
-                    $premio=repartirPremio($bote,count($ganadores),1);
-                    break;
-                
-                default:
-                    echo "Error";
-                    break;
-            }
-
-            imprimirGanadores($ganadores,$max);
-            echo "Los ganadores han obtenido ".$premio."€ de premio";
-
-        }
+        printGanadores($ganadores,$bote,$max);
     }
 ?>

@@ -204,13 +204,16 @@ function calcular_mano($mano)
     }
 }
 
-function hacerTabla($mano)
+function hacerTabla($nombre,$mano)
 {
+    echo "<tr>";
+    echo '<td style="text-align: center; vertical-align: middle; padding: 5px;">'.$nombre."</td>";
     for ($i=0; $i < 4; $i++) { 
     echo '<td>';
     echo '<img src="images/'.$mano[$i].'.PNG" style="width: 80px; height: auto;">';
     echo "</td>";
     }
+    echo "</tr>";
 }
 
 function comprobarGanador($jugadores)
@@ -218,6 +221,41 @@ function comprobarGanador($jugadores)
     $mayor=max($jugadores);
     //retorno los nombres de los jugadores que cumplen que su valor sea el indicado
     return array_keys($jugadores, $mayor);
+}
+
+function printGanadores($ganadores,$bote,$max)
+{
+            if(count($ganadores)==0)
+        {
+            echo "No hay ganadores, el bote es de ".$bote;
+            $premio=0;
+        } else
+        {
+            switch ($max) 
+            {
+                case 2:
+                    echo "La jugada ganadores es pareja, no hay premio, el bote es de ".$bote."<br>";
+                    $premio=0;
+                    break;
+                case 2.5:
+                    $premio=repartirPremio($bote,count($ganadores),0.50);
+                    break;
+                case 3:
+                    $premio=repartirPremio($bote,count($ganadores),0.70);
+                    break;
+                case 4:
+                    $premio=repartirPremio($bote,count($ganadores),1);
+                    break;
+                
+                default:
+                    echo "Error";
+                    break;
+            }
+
+            imprimirGanadores($ganadores,$max);
+            echo "Los ganadores han obtenido ".$premio."€ de premio";
+
+        }
 }
 
 function imprimirGanadores($ganadores, $max)
