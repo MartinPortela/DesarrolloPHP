@@ -72,9 +72,9 @@
             //Así se mantiene el orden numérico
             switch ($indice) {
                     case 1:
-                        shuffle($baraja["1"]);
-                        $mano[]="1".$baraja["1"][0];
-                        array_splice($baraja["1"],0,1);
+                            shuffle($baraja["1"]);
+                            $mano[]="1".$baraja["1"][0];
+                            array_splice($baraja["1"],0,1);
                         break;
                     case 2:
                             shuffle($baraja["J"]);
@@ -260,9 +260,28 @@ function printGanadores($ganadores,$bote,$max)
 
 function imprimirGanadores($ganadores, $max)
 {
+    switch ($max) {
+        case 2:
+            $baraja="Pareja";
+            break;
+        case 2.5:
+            $baraja="Doble Pareja";
+            break;
+        case 3:
+            $baraja="Trío";
+            break;
+        case 4:
+            $baraja="Poker";
+            break;
+        
+        default:
+            
+            break;
+    }
     foreach($ganadores as $nombre)
     {
-        echo $nombre." ha ganado la partida con una puntuación de ".$max."<br>";
+        echo $nombre." ha ganado la partida con una mano de tipo ".$baraja."<br>";
+
     }
 }
 
