@@ -1,0 +1,190 @@
+/* ====== Variables y reset mínimo ====== */
+:root{
+  --bg: #0f172a;       /* slate-900 */
+  --card: #111827;     /* gray-900 */
+  --muted: #94a3b8;    /* slate-400 */
+  --text: #e5e7eb;     /* gray-200 */
+  --brand: #22d3ee;    /* cyan-400 */
+  --accent: #34d399;   /* emerald-400 */
+  --warn: #f59e0b;     /* amber-500 */
+  --border: #334155;   /* slate-700 */
+  --focus: #60a5fa;    /* blue-400 */
+}
+
+*{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; }
+img{ max-width:100%; height:auto; display:block; }
+
+/* ====== Layout global ====== */
+.site-header, .site-footer{ padding: 1.2rem clamp(1rem, 3vw, 2rem); }
+.site-header{ text-align:center; }
+.subtitle{ color: var(--muted); margin-top:-.5rem; }
+.container{ width:min(1100px, 90%); margin-inline:auto; }
+
+/* ====== Cards grid ====== */
+.cards{
+  /* TAREA: crear un grid responsivo con separación controlada sin usar gap en vertical.
+     Sugerencia: usar márgenes y compensarlos en el contenedor.
+  */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* TODO: establecer separación horizontal con column-gap o márgenes laterales */
+  row-gap: 0; /* Se forzará a controlar separación vertical con margin */
+  margin-block: 24px;
+  padding: 16px;
+  border-width: 2px;
+  border-style: solid;
+  margin: 24px;
+  
+}
+.card{
+  background: var(--card);
+  /* TODO: padding interno de 16px */
+  /* TODO: borde de 2px sólido con color var(--border) */
+  /* TODO: margin externo de 24px */
+  border-radius: 12px;
+}
+.card h3{ margin: .5rem 0; }
+
+/* ====== Bordes ====== */
+.borders-demo{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap:16px;
+  margin-block: 24px;
+}
+.box{
+  background: var(--card);
+  /* TODO: aplicar padding para que el fondo envuelva el contenido */
+  /* TODO: definir diferentes tipos de borde en cada ejemplo */
+  border-radius: 10px;
+  text-align:center;
+}
+
+/* Ejemplos específicos */
+.box.basic{ 
+  /* TODO: border básico (width, style, color) */
+  border-width: 2px;
+  border-style: dashed;
+  border-color: #f59e0b;
+}
+.box.sides{
+  /* TODO: border-top/right/bottom/left con estilos distintos */
+  border-top: 2px ridge yellow;
+  border-bottom: 2px solid #34d399;
+  border-left: 2px dotted #f59e0b;
+  border-right: 2px double #f59e0b;
+}
+.box.radius{
+  /* TODO: border-radius 24px 8px 24px 8px */
+  border-style: groove;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 8px;
+}
+.box.image{
+  /* TODO: border-image con gradiente: border-image: linear-gradient(...) 1; */
+  border: 8px solid transparent;
+  border-image: linear-gradient(#292f7e, #9f110c) 1;
+}
+
+/* ====== Márgenes ====== */
+.margins-demo{ margin-block: 24px; }
+.m1{ /* TODO: margin usando shorthand 2 valores */
+  margin: 10px 30px;
+}
+.m2{ /* TODO: margin usando 4 valores */ 
+  margin: 2px 1em 30px 30px;
+}
+
+/* Colapso de márgenes */
+.collapse-wrapper{
+  /* TODO: evitar colapso de márgenes (pista: overflow:auto; o display:flow-root) */
+  background: rgba(255,255,255,.03);
+  padding: 8px 12px;
+  border:1px dashed var(--border);
+  border-radius: 8px;
+  margin-block: 16px;
+  display:flow-root;
+}
+.colapso{ background: rgba(255,255,255,.02); }
+.colapso.top{ margin-bottom: 20px; }
+.colapso.bottom{ margin-top: 20px; }
+
+/* Márgenes lógicos */
+.logical{ writing-mode: horizontal-tb; }
+.logical-item{
+  /* TODO: usar margin-block:24px; margin-inline:12px; */
+  background: rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius: 10px;
+  margin-block: 24px; 
+  margin-inline:12px;
+}
+
+/* ====== Padding ====== */
+.padding-demo{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap:16px; margin-block:24px;
+}
+.pad{ background: var(--card); border:1px solid var(--border); border-radius:10px; }
+.pad.a{ /* TODO: padding individual top/right/bottom/left */ 
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-bottom: 3px;
+  padding-right: 2px;
+}
+.pad.b{ /* TODO: shorthand padding 1-2-3 valores */ 
+  padding: 2px 10px 5px;
+}
+.pad.c{ /* TODO: demostrar que el fondo se extiende por el padding (incrementa padding) */ 
+  background-clip: padding-box;
+  @media (min-width:320px)
+  {
+    padding: 8px;
+  }
+  @media (min-width:641px)
+  {
+    padding: 16px;
+  }
+  @media (min-width:1025px)
+  {
+    padding: 24px;
+  }
+
+}
+
+/* ====== Botones estables ====== */
+.btn{
+  /* TAREA: crear botones sm/md/lg usando padding, sin width/height fijos */
+  /* TAREA: borde transparente inicial y en :hover solo cambiar color */
+  background: var(--brand);
+  color: #0b1324;
+  font-weight:600;
+  border: 2px solid transparent; /* estable */
+  border-radius: 999px;
+  cursor:pointer;
+  padding: 8px;;
+}
+.btn:hover{ border-color: var(--brand); background: transparent; color: var(--text); }
+.btn.sm{ /* TODO: padding reducido */ 
+  padding: 0%;
+}
+.btn.md{ /* TODO: padding medio */ 
+  padding: 4px;
+}
+.btn.lg{ /* TODO: padding amplio */ }
+
+/* ====== Accesibilidad foco ====== */
+.btn:focus-visible, a:focus-visible, .card:focus-within{
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* ====== Responsivo ====== */
+/* TODO: media queries
+   - móvil: padding menor en .pad.*
+   - tablet: intermedio
+   - escritorio: mayor
+*/
