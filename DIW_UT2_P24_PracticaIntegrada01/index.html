@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DIW · Práctica Integrada · Box Model</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Catálogo Minimal · Box Model</h1>
+    <p class="subtitle">border · margin · padding · model box</p>
+  </header>
+
+  <main class="container">
+    <section aria-labelledby="tarea1">
+      <h2 id="tarea1">Tarea 1 · Tarjeta de producto</h2>
+      <p>Completa el box model de una tarjeta con padding interno, borde estable y márgenes externos.</p>
+      <div class="cards">
+        <article class="card a">
+          <img src="https://via.placeholder.com/320x180.png?text=Producto+A" alt="Producto A" />
+          <h3>Producto A</h3>
+          <p>Descripción breve del producto A.</p>
+          <button class="btn">Añadir</button>
+        </article>
+        <article class="card b">
+          <img src="https://via.placeholder.com/320x180.png?text=Producto+B" alt="Producto B" />
+          <h3>Producto B</h3>
+          <p>Descripción breve del producto B.</p>
+          <button class="btn">Añadir</button>
+        </article>
+        <article class="card c">
+          <img src="https://via.placeholder.com/320x180.png?text=Producto+C" alt="Producto C" />
+          <h3>Producto C</h3>
+          <p>Descripción breve del producto C.</p>
+          <button class="btn">Añadir</button>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="tarea2">
+      <h2 id="tarea2">Tarea 2 · Bordes (básico, por lado, radius, image)</h2>
+      <div class="borders-demo">
+        <div class="box basic">Borde básico</div>
+        <div class="box sides">Bordes por lado</div>
+        <div class="box radius">Esquinas redondeadas</div>
+        <div class="box image">Border image</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tarea3">
+      <h2 id="tarea3">Tarea 3 · Márgenes (shorthand, colapso, lógicos)</h2>
+      <div class="margins-demo">
+        <p class="m1">Párrafo con margen 1.</p>
+        <p class="m2">Párrafo con margen 2.</p>
+        <div class="collapse-wrapper">
+          <p class="colapso top">Bloque A con margen abajo</p>
+          <p class="colapso bottom">Bloque B con margen arriba</p>
+        </div>
+        <div class="logical">
+          <div class="logical-item">Elemento con márgenes lógicos</div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tarea4">
+      <h2 id="tarea4">Tarea 4 · Padding (shorthand, fondo, responsive)</h2>
+      <div class="padding-demo">
+        <div class="pad a">Padding individual</div>
+        <div class="pad b">Padding shorthand</div>
+        <div class="pad c">Fondo y padding</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tarea5">
+      <h2 id="tarea5">Tarea 5 · Botones estables</h2>
+      <div class="buttons">
+        <button class="btn sm">Pequeño</button>
+        <button class="btn md">Mediano</button>
+        <button class="btn lg">Grande</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>DIW · UT2 · Práctica integrada del Box Model.</small>
+  </footer>
+</body>
+</html>
