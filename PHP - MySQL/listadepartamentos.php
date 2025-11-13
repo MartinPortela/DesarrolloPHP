@@ -5,7 +5,7 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'rootroot');
-define('DB_DATABASE', 'empleadosnn');
+define('DB_DATABASE', 'empleados1n');
 $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
    
    if (!$db) {
