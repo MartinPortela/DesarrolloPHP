@@ -17,10 +17,10 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //Selecciono las categorías
-    $stmt = $conn->prepare("SELECT nombre FROM categoria");
+    $stmt = $conn->prepare("SELECT id_categoria,nombre FROM categoria");
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $resultado=$stmt->fetchAll();
+    $categorias=$stmt->fetchAll();
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -28,14 +28,14 @@ catch(PDOException $e) {
 if(!isset($_POST) || empty($_POST))
 {
     echo '<form action="" method="post">';
-    $categorias=obtenerCategorias($resultado);
+    
 
 ?>
 <div>
 	<label for="categorias">Categorías:</label>
 	<select name="categorias">
 		<?php foreach($categorias as $categoria) : ?>
-			<option> <?php echo $categoria ?> </option>
+			<option value="<?php echo $categoria['id_categoria']; ?>"> <?php echo $categoria["nombre"]; ?> </option>
 		<?php endforeach; ?>
 	</select>
 	</div>
@@ -60,33 +60,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $categoria=test_input($_POST['categorias']);
     
     //Select para recoger el id de los productos
-    $stmt2 = $conn->prepare("SELECT id_producto FROM producto");
+    $stmt2 = $conn->prepare("SELECT MAX(id_producto) AS prod FROM producto");
     //Select para insertar el nuevo producto
-    $stmt3 = $conn->prepare("INSERT INTO producto (id_producto,nombre,precio,id_categoria) VALUES (:id_prod,:nombre,$precio,:id_cat)");
+    $stmt3 = $conn->prepare("INSERT INTO producto (id_producto,nombre,precio,id_categoria) VALUES (:id_prod,:nombre,:precio, :categoria)");
     //Select para recoger el id de la categoría escogida
-    $stmt4 = $conn->prepare("SELECT id_categoria FROM categoria wHERE nombre='$categoria'");
     $stmt3->bindParam(':id_prod', $id_prod);
     $stmt3->bindParam(':nombre', $nombre);
-    $stmt3->bindParam(':id_cat', $id_cat);
+    $stmt3->bindParam(':precio', $precio);
+    $stmt3->bindParam(':categoria', $categoria);
     $stmt2->execute();
-    $stmt4->execute();
 
     // set the resulting array to associative
      $stmt2->setFetchMode(PDO::FETCH_ASSOC);
 	 $resultado=$stmt2->fetchAll();
-     $stmt4->setFetchMode(PDO::FETCH_ASSOC);
-	 $resultado2=$stmt4->fetchAll();
-     $id_cat=$resultado2[0]["id_categoria"];
      if($resultado!=null)
      {
-	 $ultimaClave = array_key_last($resultado);
-     $max=$resultado[$ultimaClave]["id_producto"];
+     $max=$resultado[0]["prod"];
      $max=substr($max,-3);
      $max++;
+     $max=str_pad($max,3,0,STR_PAD_LEFT);
      $id_prod='P'.$max;
      }else
      {
-        $id_prod='P100';
+        $id_prod='P001';
      }
      $nombre=$producto;
      $stmt3->execute();
@@ -97,16 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
-}
-
-//Función para obtener las categorías
-function obtenerCategorias($cat)
-{
-    $categorias=array();
-    foreach ($cat as $key => $value) {
-        $categorias[]=$value["nombre"];
-    }
-    return $categorias;
 }
 ?>
 </FORM>

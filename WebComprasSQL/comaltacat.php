@@ -38,10 +38,11 @@ try {
      $max=$resultado[$ultimaClave]["id_categoria"];
      $max=substr($max,-3);
      $max++;
+     $max=str_pad($max,3,0,STR_PAD_LEFT);
      $id_cat='C-'.$max;
      }else
      {
-        $id_cat='C-100';
+        $id_cat='C-001';
      }
      $nombre=$categoria;
      $stmt->execute();
