@@ -1,0 +1,77 @@
+/* PRÁCTICA 1 - STARTER
+   Objetivo: añadir estilos CSS3 para la galería y hacerla responsive.
+*/
+
+/* TODO: definir tipografía base, colores, etc. */
+:root {
+  --color-bg: #f7f7f7;
+  --color-primary: #005f99;
+  --color-text: #333333;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* TODO: maquetar cabecera con logo */
+.site-header {
+  padding: 1.5rem;
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo h1 {
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+table, th, td {
+  border:1px solid black;
+}
+.intro {
+  margin-bottom: 2rem;
+}
+
+.gallery h2 {
+  margin-bottom: 1rem;
+}
+
+/* TODO: usar grid para la galería */
+.gallery-grid {
+  display: block; /* Por defecto: el alumnado lo cambiará a grid o flex */
+}
+
+/* TODO: estilos de las figuras e imágenes (borde, sombra, transición, etc.) */
+.gallery-item {
+  margin-bottom: 1rem;
+}
+
+/* TODO: hacer la galería responsive usando media queries */
+.site-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #777;
+}
