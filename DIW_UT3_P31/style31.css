@@ -49,6 +49,7 @@ main {
 
 table, th, td {
   border:1px solid black;
+  text-align: center;
 }
 .intro {
   margin-bottom: 2rem;
