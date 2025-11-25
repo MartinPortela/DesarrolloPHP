@@ -11,6 +11,7 @@ Inserte un nuevo departamento:
 <input type="submit" value="enviar">
 <input type="reset" value="borrar">
 <?php
+include 'funciones_bdd.php';
 $convertir="";
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $nombre=test_input($_POST['nombre']);
@@ -54,23 +55,7 @@ catch(PDOException $e) {
 $conn = null;
 }
 
-function conexion()
-{
-    $servername = "localhost";
-    $username = "root";
-    $password = "rootroot";
-    $dbname = "empleados";
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $conn->beginTransaction();
-    return $conn;
-}
- function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+
 ?>
 </FORM>
 

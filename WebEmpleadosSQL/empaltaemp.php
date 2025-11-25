@@ -6,6 +6,7 @@
 <h1>Dar de alta emepleados</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
+include 'funciones_bdd.php';
 $convertir="";
 $servername = "localhost";
 $username = "root";
@@ -112,23 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     $conn=null;
 }
-function conexion()
-{
-    $servername = "localhost";
-    $username = "root";
-    $password = "rootroot";
-    $dbname = "empleados";
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $conn->beginTransaction();
-    return $conn;
-}
- function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
+
 ?>
 </FORM>
 
