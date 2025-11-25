@@ -96,13 +96,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $stmt3->execute();
     $stmt2->execute();
     $conn->commit();
-     
+    echo "Empleado insertado";
     }
     catch(PDOException $e)
     {
         echo "Error: " . $e->getMessage();
 
         echo "Código de error: " . $e->getCode() . "<br>";
+        if($e->getCode()==23000)
+        {
+            echo "<br>No se puede repetir el DNI";
+        }
 
         $conn->rollBack();
     }
