@@ -15,22 +15,17 @@ $convertir="";
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $nombre=test_input($_POST['nombre']);
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "rootroot";
-    $dbname = "empleados";
+    
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $conn->beginTransaction();
+    $conn = conexion();
     $stmt2 = $conn->prepare("SELECT MAX(cod_dpto) as max FROM departamento");
     $stmt = $conn->prepare("INSERT INTO departamento (nombre_dpto,cod_dpto) VALUES (:nombre_dpto,:cod_dpto)");
     $stmt->bindParam(':cod_dpto', $cod_dpto);
     $stmt->bindParam(':nombre_dpto', $nombre_dpto);
     $stmt2->execute();
 
-    // set the resulting array to associative
+    
      $stmt2->setFetchMode(PDO::FETCH_ASSOC);
 	 $resultado=$stmt2->fetchAll();
      if($resultado!=null)
@@ -39,10 +34,10 @@ try {
      $max=substr($max,-3);
      $max++;
      $max=str_pad($max,3,0,STR_PAD_LEFT);
-     $cod_dpto='C'.$max;
+     $cod_dpto='D'.$max;
      }else
      {
-        $cod_dpto='CD001';
+        $cod_dpto='D001';
      }
      $nombre_dpto=$nombre;
      $stmt->execute();
@@ -57,6 +52,18 @@ catch(PDOException $e) {
     $conn->rollBack();
 }
 $conn = null;
+}
+
+function conexion()
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "rootroot";
+    $dbname = "empleados";
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->beginTransaction();
+    return $conn;
 }
  function test_input($data) {
   $data = trim($data);
