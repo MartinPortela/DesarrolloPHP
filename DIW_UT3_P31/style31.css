@@ -61,12 +61,26 @@ table, th, td {
 
 /* TODO: usar grid para la galería */
 .gallery-grid {
-  display: block; /* Por defecto: el alumnado lo cambiará a grid o flex */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  max-width: 1000px;
+  margin: auto;
+  
 }
 
 /* TODO: estilos de las figuras e imágenes (borde, sombra, transición, etc.) */
 .gallery-item {
-  margin-bottom: 1rem;
+    width: 100%;
+    height: auto;
+    border: 2px solid #333; 
+    border-radius: 6px;
+    padding: 20px; 
+}
+.gallery-item img:hover {
+    box-shadow: 5px 5px 8px 10px red;
+    filter: brightness(0.20);
+    margin-bottom: 20px;
 }
 
 /* TODO: hacer la galería responsive usando media queries */
