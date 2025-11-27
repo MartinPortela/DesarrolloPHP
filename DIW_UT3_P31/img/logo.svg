@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="637.65625"
+   height="401.03125"
+   viewBox="0 0 637.65625 401.03125"
+   version="1.1"
+   xml:space="preserve"
+   id="SVGRoot"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1"><rect
+     x="2.5677602"
+     y="3.8516405"
+     width="898.71613"
+     height="897.43225"
+     id="rect2" /></defs>
+  <sodipodi:namedview
+   pagecolor="#5544f0"
+   bordercolor="#000000"
+   borderopacity="1"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#606060"
+   id="namedview1"
+   inkscape:zoom="0.77888889"
+   inkscape:cx="638.08845"
+   inkscape:cy="406.34807"
+   inkscape:window-width="1920"
+   inkscape:window-height="903"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="SVGRoot" />
+ <style
+   type="text/css"
+   id="style1">
+g.prefab path {
+  vector-effect:non-scaling-stroke;
+  -inkscape-stroke:hairline;
+  fill: none;
+  fill-opacity: 1;
+  stroke-opacity: 1;
+  stroke: #00349c;
+}
+ </style>
+ 
+<g
+   id="g49"><g
+     id="g23"
+     transform="translate(294.27552,124.24412)"><text
+       xml:space="preserve"
+       style="font-size:192px;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:1;mix-blend-mode:normal;fill:#6d0909;fill-opacity:0.485366;stroke:#530020;stroke-opacity:1"
+       x="25.677603"
+       y="33.380882"
+       id="text22"
+       inkscape:highlight-color="#89000e"><tspan
+         sodipodi:role="line"
+         id="tspan22"
+         x="25.677603"
+         y="33.380882"
+         style="text-align:center;text-anchor:middle;fill:#6d0909;fill-opacity:0.485366;stroke:#530020;stroke-opacity:1">Martín </tspan><tspan
+         sodipodi:role="line"
+         x="25.677603"
+         y="273.38089"
+         style="text-align:center;text-anchor:middle;fill:#6d0909;fill-opacity:0.485366;stroke:#530020;stroke-opacity:1"
+         id="tspan23">Portela</tspan></text></g></g></svg>
