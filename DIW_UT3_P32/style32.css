@@ -1,0 +1,52 @@
+/* PRÁCTICA 2 STARTER: mejorar el layout y hacerlo responsive */
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.site-header {
+  padding: 1rem;
+  text-align: center;
+  background: #111;
+  color: #fff;
+}
+
+.layout {
+  padding: 1rem;
+}
+
+.media-card {
+  margin-bottom: 1.5rem;
+}
+
+audio,
+video {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* TODO: añadir estilos con flex o grid, efecto hover, dark/light mode, etc. */
+
+.layout {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+
+@media (min-width: 700px) {
+  .layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.media-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.media-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+}
