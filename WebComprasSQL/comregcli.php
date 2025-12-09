@@ -27,32 +27,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $nombre=test_input($_POST['nombre']);
     $apellido=test_input($_POST['apellido']);
     $CP=test_input($_POST['CP']);
-    $direccion=test_input($_POST['dreccion']);
+    $direccion=test_input($_POST['direccion']);
     $ciudad=test_input($_POST['ciudad']);
 
 try {
     $conn = conexion();
     $stmt=prepararInsert($conn,$NIF,$nombre,$apellido,$CP,$direccion,$ciudad);
-    $stmt2 = $conn->prepare("SELECT NIF FROM CLIENTE");
-    $stmt2->execute();
-    $stmt2->setFetchMode(PDO::FETCH_ASSOC);
-
-	$resultado=$stmt2->fetchAll();
-    if($resultado!=null)
-    {
-	$ultimaClave = array_key_last($resultado);
-    $max=$resultado[$ultimaClave]["num_almacen"];
-    $max++;
-    $num_alm=$max;
-    }else
-    {
-        $num_alm=1;
-    }
-    $localidad=$almacen;
     $stmt->execute();
-    echo "Almacén insertado";
+    echo "Cliente registrado";
     $conn->commit();
-}
+    $cookie_name = "usuario";
+    $cookie_value = $nombre;
+    $cookie_name2 = "clave";
+    $cookie_value2 = strrev($apellido);
+    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 segundos = 1 día
+    setcookie($cookie_name2, $cookie_value2, time() + (86400 * 30), "/"); // 86400 segundos = 1 día
+}   
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 
