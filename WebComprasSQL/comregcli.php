@@ -36,12 +36,6 @@ try {
     $stmt->execute();
     echo "Cliente registrado";
     $conn->commit();
-    $cookie_name = "usuario";
-    $cookie_value = $nombre;
-    $cookie_name2 = "clave";
-    $cookie_value2 = strrev($apellido);
-    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 segundos = 1 día
-    setcookie($cookie_name2, $cookie_value2, time() + (86400 * 30), "/"); // 86400 segundos = 1 día
 }   
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
