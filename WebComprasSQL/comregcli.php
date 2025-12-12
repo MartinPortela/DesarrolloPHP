@@ -49,13 +49,15 @@ $conn = null;
 
 function prepararInsert($conn,$NIF,$nombre,$apellido,$CP,$direccion,$ciudad)
 {
-    $stmt = $conn->prepare("INSERT INTO cliente (NIF,nombre,apellido,CP,direccion,ciudad) VALUES (:NIF,:nombre,:apellido,:CP,:direccion,:ciudad)");
+    $clave=strrev($apellido);
+    $stmt = $conn->prepare("INSERT INTO cliente (NIF,nombre,apellido,CP,direccion,ciudad,clave) VALUES (:NIF,:nombre,:apellido,:CP,:direccion,:ciudad,:clave)");
     $stmt->bindParam(':NIF', $NIF);
     $stmt->bindParam(':nombre', $nombre);
     $stmt->bindParam(':apellido', $apellido);
     $stmt->bindParam(':CP', $CP);
     $stmt->bindParam(':direccion', $direccion);
     $stmt->bindParam(':ciudad', $ciudad);
+    $stmt->bindParam(':clave', $clave);
     return $stmt;
 }
 ?>

@@ -8,7 +8,7 @@
 
 Inserte un nombre
 <input type='text' name='nombre' value='' size=9><br><br>
-Inserte un apellido
+Inserte la clave
 <input type='text' name='apellido' value='' size=9><br><br>
 <input type="submit" value="enviar">
 <input type="reset" value="borrar">
@@ -17,28 +17,43 @@ include 'funciones_bdd.php';
 session_start();
 $cookie_name = "usuario";
 $cookie_name2 = "clave";
-$secretpassword = $_COOKIE[$cookie_name2];;
-$secretusername = $_COOKIE[$cookie_name];
-
-
-   $error = null;
+$error = null;
    if (!empty($_POST)) {
-       $username = empty($_POST['nombre']) ? null : $_POST['nombre'];
-       $password = empty($_POST['apellido']) ? null : $_POST['apellido'];
+       $username = empty($_POST['nombre']) ? null : test_input($_POST['nombre']);
+       $password = empty($_POST['apellido']) ? null : test_input($_POST['apellido']);
 
-       if ($username == $secretusername && $password == $secretpassword) {
+    try {
+    $conn=conexion();
+    $stmt=prepararSelect($conn);
+    $secretusername = $username;
+    $secretpassword = $stmt[$username];
+    echo $stmt[$username];
+    if ($username == $secretusername && $password == $secretpassword) {
            $_SESSION['authenticated'] = true;
-           // Redirect to your secure location
-           header('Location: comaltapro.php');
-           
+           header('Location: defecto.php');
            return;
        } else {
-           $error = 'Incorrect username or password';
+           $error = 'Usuario o contraseña incorrectos';
        }
-   }
-   // Create a login form or something
-   echo $error;
+    } 
+    catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
 
+        echo "Código de error: " . $e->getCode() . "<br>";
+
+        $conn->rollBack();
+    } 
+       
+   }
+
+   function prepararSelect($conn)
+   {
+    $stmt = $conn->prepare("SELECT nombre,clave FROM cliente");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_KEY_PAIR);
+	$resultado=$stmt->fetchAll();
+    return $resultado;
+   }
 
 
 ?>
