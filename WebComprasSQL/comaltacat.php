@@ -11,6 +11,8 @@ Inserte una nueva categoría:
 <input type="submit" value="enviar">
 <input type="reset" value="borrar">
 <?php
+session_start();
+echo $_SESSION['username'];
 $convertir="";
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $categoria=test_input($_POST['categoria']);

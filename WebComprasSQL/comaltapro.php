@@ -6,6 +6,8 @@
 <h1>Dar de alta productos</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
+session_start();
+echo $_SESSION['username'];
 $convertir="";
 $servername = "localhost";
 $username = "root";

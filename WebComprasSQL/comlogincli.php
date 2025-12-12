@@ -30,6 +30,7 @@ $error = null;
     echo $stmt[$username];
     if ($username == $secretusername && $password == $secretpassword) {
            $_SESSION['authenticated'] = true;
+           $_SESSION['username'] = $username;
            header('Location: defecto.php');
            return;
        } else {
