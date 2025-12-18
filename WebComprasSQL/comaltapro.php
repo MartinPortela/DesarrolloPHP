@@ -7,7 +7,10 @@
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
 session_start();
-echo $_SESSION['username'];
+if(isset($_SESSION['username']))
+{
+    echo $_SESSION['username'];
+}
 $convertir="";
 $servername = "localhost";
 $username = "root";
@@ -96,8 +99,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   $data = htmlspecialchars($data);
   return $data;
 }
+
+if(isset($_SESSION['username']))
+{
+    echo '<form action="logout.php" method="post">
+<input type="submit" value="Logout"/>
+</form>';
+}
 ?>
-</FORM>
 
 </BODY>
 </HTML>

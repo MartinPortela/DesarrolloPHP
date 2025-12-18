@@ -3,7 +3,7 @@
 <HEAD> <TITLE>Login cliente</TITLE>
 <BODY>
 <h1>Login</h1>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method="post" action="<?php session_start(); echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
 
 Inserte un nombre
@@ -14,7 +14,6 @@ Inserte la clave
 <input type="reset" value="borrar">
 <?php
 include 'funciones_bdd.php';
-session_start();
 $cookie_name = "usuario";
 $cookie_name2 = "clave";
 $error = null;
