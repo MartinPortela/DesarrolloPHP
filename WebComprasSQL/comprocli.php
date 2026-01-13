@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <?php 
 session_start();
-$_SESSION['carrito']=array; 
+include 'funciones_bdd.php';
 ?>  
 <HTML>
 <HEAD> <TITLE>Comprocli</TITLE>
@@ -10,32 +10,16 @@ $_SESSION['carrito']=array;
 <h1>Comprar productos</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
-$convertir="";
-$servername = "localhost";
-$username = "root";
-$password = "rootroot";
-$dbname = "comprasweb";
-
 try {
     //Conexión con la base de datos
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = conexion();
     //Selecciono las categorías
-    $stmt = $conn->prepare("SELECT id_producto,nombre FROM producto");
-    $stmt->execute();
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $productos=$stmt->fetchAll();
-    $stmt2 = $conn->prepare("SELECT id_producto,cantidad FROM almacena");
-    $stmt2->execute();
-    $stmt2->setFetchMode(PDO::FETCH_ASSOC);
-    $almacenes=$stmt2->fetchAll();
+    $productos=seleccionarProductos($conn);
+    $almacenes=seleccionarCantidad($conn);
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-if(!isset($_POST) || empty($_POST))
-{
-    echo '<form action="" method="post">';
     
 
 ?>
@@ -46,35 +30,65 @@ if(!isset($_POST) || empty($_POST))
 			<option value="<?php echo $producto['id_producto']; ?>"> <?php echo $producto["nombre"]; ?> </option>
 		<?php endforeach; ?>
 	</select>
-	</div>
-	</BR>
-
-<br>
-<br>
+    <label for="cantidad1">Cantidad:</label>
+			<input type="number" name="cantidad">
+</div>
+</BR>
+<div>
+<input type="submit" value="Comprar Productos" name="comprar">
+<input type="submit" value="Agregar a la Cesta" name="agregar">
+<input type="submit" value="Limpiar la Cesta" name="limpiar">
+</div>
 <?php
-echo '<div><input type="submit" value="Comprar productos"></div>
-	</form>';
-}
+echo '</form>';
+echo '<form method="post" action="logout.php">
+    <input type="submit" value="Cerrar sesión">
+</form>';
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $productoNum=test_input($_POST['producto']);
-    $almacen=test_input($_POST['almacenes']);
-    $producto=test_input($_POST['productos']);
-    
-    $stmt3=$conn->prepare("INSERT INTO almacena(num_almacen,id_producto,cantidad) VALUES (:num_alm,:id_prod,:cantidad)");
-    $stmt3->bindParam(':id_prod', $id_prod);
-    $stmt3->bindParam(':num_alm', $num_alm);
-    $stmt3->bindParam(':cantidad', $cantidad);
-    $id_prod=$producto;
-    $num_alm=$almacen;
-    $cantidad=$productoNum;
-    $stmt3->execute();
-    echo "Productos enviados";
+
+  // AGREGAR A LA CESTA DE LA COMPRA
+	if (isset($_POST['agregar']) && !empty($_POST['agregar'])) {
+	  
+	    if (!isset($_SESSION['$cesta'])) 
+		   $_SESSION['$cesta']=array(array($_POST['productos'],$_POST['cantidad']));
+		   
+	    else
+	       array_push($_SESSION['$cesta'],array($_POST['productos'],$_POST['cantidad']));
+	}
+    if (isset($_POST['limpiar']) && !empty($_POST['limpiar']))
+    {
+        if(isset($_SESSION['$cesta'])) unset($_SESSION['$cesta']);
+    }
+    if (isset($_POST['comprar']) && !empty($_POST['comprar'])) {
+	  
+	    if (!isset($_SESSION['$cesta'])) 
+		   $_SESSION['$cesta']=array(array($_POST['productos'],$_POST['cantidad']));
+		   
+	    else
+	       array_push($_SESSION['$cesta'],array($_POST['productos'],$_POST['cantidad']));
+	}
+	
+if(isset($_SESSION['$cesta'])) var_dump($_SESSION['$cesta']);
+
+
 }
- function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+
+function seleccionarProductos($conn)
+{
+    $stmt = $conn->prepare("SELECT id_producto,nombre FROM producto");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $productos=$stmt->fetchAll();
+    return $productos;
+}
+
+function seleccionarCantidad($conn)
+{
+    $stmt2 = $conn->prepare("SELECT id_producto,cantidad FROM almacena");
+    $stmt2->execute();
+    $stmt2->setFetchMode(PDO::FETCH_ASSOC);
+    $almacenes=$stmt2->fetchAll();
+    return $almacenes;
 }
 ?>
 </FORM>
