@@ -23,13 +23,13 @@ $error = null;
 
     try {
     $conn=conexion();
-    $stmt=prepararSelect($conn);
+    $stmt=prepararSelect($conn,$username);
     $secretusername = $username;
-    $secretpassword = $stmt[$username];
-    echo $stmt[$username];
+    $secretpassword = $stmt['clave'];
+    $nif=$stmt['nif'];
     if ($username == $secretusername && $password == $secretpassword) {
            $_SESSION['authenticated'] = true;
-           $_SESSION['username'] = $username;
+           $_SESSION['nif'] = $nif;
            header('Location: defecto.php');
            return;
        } else {
@@ -46,12 +46,13 @@ $error = null;
        
    }
 
-   function prepararSelect($conn)
+   function prepararSelect($conn,$username)
    {
-    $stmt = $conn->prepare("SELECT nombre,clave FROM cliente");
+    $stmt = $conn->prepare("SELECT nombre,clave,nif FROM cliente WHERE nombre= :nombre");
+    $stmt->bindParam(':nombre', $username);
     $stmt->execute();
-    $stmt->setFetchMode(PDO::FETCH_KEY_PAIR);
-	$resultado=$stmt->fetchAll();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$resultado=$stmt->fetch();
     return $resultado;
    }
 

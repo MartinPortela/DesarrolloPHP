@@ -1,9 +1,13 @@
-<!DOCTYPE HTML>  
+<!DOCTYPE HTML>
+<?php 
+session_start();
+$_SESSION['carrito']=array; 
+?>  
 <HTML>
-<HEAD> <TITLE>Comaltapro</TITLE>
+<HEAD> <TITLE>Comprocli</TITLE>
 </HEAD>
 <BODY>
-<h1>Dar de alta productos</h1>
+<h1>Comprar productos</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
 $convertir="";
@@ -21,7 +25,7 @@ try {
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $productos=$stmt->fetchAll();
-    $stmt2 = $conn->prepare("SELECT num_almacen,localidad FROM almacen");
+    $stmt2 = $conn->prepare("SELECT id_producto,cantidad FROM almacena");
     $stmt2->execute();
     $stmt2->setFetchMode(PDO::FETCH_ASSOC);
     $almacenes=$stmt2->fetchAll();
@@ -44,14 +48,11 @@ if(!isset($_POST) || empty($_POST))
 	</select>
 	</div>
 	</BR>
-<div>
-    <label for="producto">Número de producto:</label>
-     <input type="number" name="cantidad">
-</div>
+
 <br>
 <br>
 <?php
-echo '<div><input type="submit" value="Introducir producto"></div>
+echo '<div><input type="submit" value="Comprar productos"></div>
 	</form>';
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST"){

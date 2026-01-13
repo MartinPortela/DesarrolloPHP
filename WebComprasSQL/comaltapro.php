@@ -7,9 +7,9 @@
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
 session_start();
-if(isset($_SESSION['username']))
+if(isset($_SESSION['nif']))
 {
-    echo $_SESSION['username'];
+    echo $_SESSION['nif'];
 }
 $convertir="";
 $servername = "localhost";
