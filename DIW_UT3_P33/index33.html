@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Práctica 3.3 - Animaciones simples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style33.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Práctica 3.3 · Animaciones simples</h1>
+    <p class="subtitle">
+      GIF animado + animaciones básicas con CSS3
+    </p>
+  </header>
+
+  <main class="layout">
+    <!-- Sección GIF -->
+    <section class="card">
+      <h2>1. GIF animado</h2>
+      <p>
+        Crea un GIF animado a partir de varias imágenes fijas
+        y sustitúyelo en el siguiente bloque:
+      </p>
+      <div class="gif-wrapper">
+        <!-- TODO: sustituir ruta por el GIF creado -->
+        <img src="gif/mi-animacion.gif" alt="GIF de ejemplo" class="gif-image" />
+      </div>
+      <p class="note">
+        He utilizado la página ezgif.com y su herramienta animated GIF Maker. El GIF cuenta con 4 fotogramas, 
+        con una duración total de 2 segundos, cada fotograma durando 0.5 segundos en pantalla y el archivo pesa 1,15 MB
+      </p>
+    </section>
+
+    <!-- Sección animación hover botón -->
+    <section class="card">
+      <h2>2. Animación hover con CSS</h2>
+      <p>
+        Diseña un botón con una animación suave al pasar el ratón
+        (cambios de color, tamaño, posición, etc.).
+      </p>
+      <button class="btn-animado">
+        Pasa el ratón por aquí
+      </button>
+    </section>
+
+    <!-- Sección animación continua -->
+    <section class="card">
+      <h2>3. Animación continua con @keyframes</h2>
+      <p>
+        Crea una animación continua (por ejemplo un icono que late o una burbuja
+        que se desplaza) usando la propiedad <code>animation</code>.
+      </p>
+      <div class="anim-demo">
+        <div class="burbujita"></div>
+        <p class="note">
+          La burbujita debe moverse o cambiar de tamaño de forma infinita
+          mediante una animación CSS.
+        </p>
+      </div>
+    </section>
+<p class="note">
+Los GIFs pueden ser utilizados para iconos, sin embargo, las animaciones CSS pesan mucho menos,
+por lo que la página se cargará más rápido para el usuario, no solo esto, si no que también son
+completamente controlables a diferencia de los GIFs. Para concluir, si la página necesita
+animaciones varias, es mejor utilizar animaciones CSS, sin embargo, para un icono, es bueno usar GIF,
+ya que son fáciles de utilizar y están habilitados en todos los navegadores.     
+</p>
+</main>
+  <footer class="site-footer">
+    <p>DAW · DIW · RA3 - Práctica 3.3 </p>
+  </footer>
+</body>
+</html>
