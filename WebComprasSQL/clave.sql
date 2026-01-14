@@ -1,0 +1,1 @@
+ALTER TABLE cliente ADD clave varchar(25);

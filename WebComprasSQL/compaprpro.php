@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>  
 <HTML>
-<HEAD> <TITLE>Comaltapro</TITLE>
+<HEAD> <TITLE>compaprpro</TITLE>
 </HEAD>
 <BODY>
-<h1>Dar de alta productos</h1>
+<h1>NumProductos</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
 $convertir="";

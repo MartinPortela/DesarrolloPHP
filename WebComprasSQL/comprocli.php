@@ -13,15 +13,14 @@ include 'funciones_bdd.php';
 try {
     //Conexión con la base de datos
     $conn = conexion();
-    //Selecciono las categorías
+    //Selecciono los productos
     $productos=seleccionarProductos($conn);
+    //Preparo el número de productos, ordenados por su ID
     $almacenes=seleccionarCantidad($conn);
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-    
-
 ?>
 <div>
 	<label for="productos">Producto:</label>
@@ -55,17 +54,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	    else
 	       array_push($_SESSION['$cesta'],array($_POST['productos'],$_POST['cantidad']));
 	}
+    //Limpiar la cesta de compra
     if (isset($_POST['limpiar']) && !empty($_POST['limpiar']))
     {
         if(isset($_SESSION['$cesta'])) unset($_SESSION['$cesta']);
     }
+    //Comprar
     if (isset($_POST['comprar']) && !empty($_POST['comprar'])) {
 	  
 	    if (!isset($_SESSION['$cesta'])) 
-		   $_SESSION['$cesta']=array(array($_POST['productos'],$_POST['cantidad']));
-		   
-	    else
-	       array_push($_SESSION['$cesta'],array($_POST['productos'],$_POST['cantidad']));
+		   echo "No se han elegido productos";
+		else
+            {
+                foreach ($_SESSION['$cesta'] as $cesta) 
+                {
+                   if($cesta[1]>$almacenes[$cesta[0]])
+                    {
+                        echo "No hay productos suficientes";
+                        $comp=true;
+                    }
+                }
+
+                if(!isset($comp))
+                {
+                    echo "Compra finalizada con éxito";
+                    unset($_SESSION['$cesta']);
+                }
+            }   
+	       
 	}
 	
 if(isset($_SESSION['$cesta'])) var_dump($_SESSION['$cesta']);
@@ -86,7 +102,7 @@ function seleccionarCantidad($conn)
 {
     $stmt2 = $conn->prepare("SELECT id_producto,cantidad FROM almacena");
     $stmt2->execute();
-    $stmt2->setFetchMode(PDO::FETCH_ASSOC);
+    $stmt2->setFetchMode(PDO::FETCH_KEY_PAIR);
     $almacenes=$stmt2->fetchAll();
     return $almacenes;
 }
