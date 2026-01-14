@@ -7,20 +7,16 @@
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
 session_start();
+include "funciones_bdd.php";
 if(isset($_SESSION['nif']))
 {
     echo $_SESSION['nif'];
 }
-$convertir="";
-$servername = "localhost";
-$username = "root";
-$password = "rootroot";
-$dbname = "comprasweb";
+
 
 try {
     //Conexión con la base de datos
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = conexion();
     //Selecciono las categorías
     $stmt = $conn->prepare("SELECT id_categoria,nombre FROM categoria");
     $stmt->execute();

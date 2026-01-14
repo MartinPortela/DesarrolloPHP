@@ -20,6 +20,7 @@ try {
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
+    echo "Código de error: " . $e->getCode() . "<br>";
 }
 ?>
 <div>
@@ -43,16 +44,17 @@ echo '</form>';
 echo '<form method="post" action="logout.php">
     <input type="submit" value="Cerrar sesión">
 </form>';
+var_dump($almacenes);
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
   // AGREGAR A LA CESTA DE LA COMPRA
 	if (isset($_POST['agregar']) && !empty($_POST['agregar'])) {
 	  
 	    if (!isset($_SESSION['$cesta'])) 
-		   $_SESSION['$cesta']=array(array($_POST['productos'],$_POST['cantidad']));
+		   $_SESSION['$cesta']=array($_POST['productos'] => $_POST['cantidad']);
 		   
-	    else
-	       array_push($_SESSION['$cesta'],array($_POST['productos'],$_POST['cantidad']));
+	    else if(!isset($_SESSION['$cesta'][$_POST['productos']])) $_SESSION['$cesta'][$_POST['productos']]=$_POST['cantidad'];
+            else $_SESSION['$cesta'][$_POST['productos']]+=$_POST['cantidad'];
 	}
     //Limpiar la cesta de compra
     if (isset($_POST['limpiar']) && !empty($_POST['limpiar']))
@@ -66,9 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		   echo "No se han elegido productos";
 		else
             {
-                foreach ($_SESSION['$cesta'] as $cesta) 
+                foreach ($_SESSION['$cesta'] as $cesta => $valor) 
                 {
-                   if($cesta[1]>$almacenes[$cesta[0]])
+                   if($valor>$almacenes[$cesta])
                     {
                         echo "No hay productos suficientes";
                         $comp=true;
@@ -78,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 if(!isset($comp))
                 {
                     echo "Compra finalizada con éxito";
+                    introducirCompra($conn);
                     unset($_SESSION['$cesta']);
                 }
             }   
@@ -100,11 +103,35 @@ function seleccionarProductos($conn)
 
 function seleccionarCantidad($conn)
 {
-    $stmt2 = $conn->prepare("SELECT id_producto,cantidad FROM almacena");
+    $stmt2 = $conn->prepare("SELECT id_producto, SUM(cantidad) AS cantidad_total FROM almacena GROUP BY id_producto");
     $stmt2->execute();
     $stmt2->setFetchMode(PDO::FETCH_KEY_PAIR);
     $almacenes=$stmt2->fetchAll();
     return $almacenes;
+}
+
+function introducirCompra($conn)
+{
+    $nif=$_SESSION['nif'];
+    $stmt2 = $conn->prepare("INSERT INTO compra (nif,id_producto,fecha_compra,unidades) VALUES (:nif,:id_producto,:fecha,:unidades)");
+    $fecha=date("Y/m/d");
+    $stmt2->bindParam(':fecha',$fecha);
+    $stmt2->bindParam(':nif',$nif);
+    try {
+    foreach ($_SESSION['$cesta'] as $cesta => $valor) 
+    {
+        $stmt2->bindParam(':id_producto',$cesta);
+        $stmt2->bindParam(':unidades',$valor);
+        $stmt2->execute();
+    }
+    $conn->commit();
+    }
+    catch(PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        echo "Código de error: " . $e->getCode() . "<br>";
+        $conn->rollBack();
+    }
+    
 }
 ?>
 </FORM>

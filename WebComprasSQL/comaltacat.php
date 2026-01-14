@@ -11,20 +11,14 @@ Inserte una nueva categoría:
 <input type="submit" value="enviar">
 <input type="reset" value="borrar">
 <?php
+include "funciones_bdd.php";
 session_start();
-echo $_SESSION['username'];
 $convertir="";
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $categoria=test_input($_POST['categoria']);
-    
-    $servername = "localhost";
-    $username = "root";
-    $password = "rootroot";
-    $dbname = "comprasweb";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = conexion();
     $stmt2 = $conn->prepare("SELECT id_categoria FROM categoria");
     $stmt = $conn->prepare("INSERT INTO categoria (id_categoria,nombre) VALUES (:id_cat,:nombre)");
     $stmt->bindParam(':id_cat', $id_cat);

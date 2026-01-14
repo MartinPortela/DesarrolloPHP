@@ -3,7 +3,7 @@
 <HEAD> <TITLE>Login cliente</TITLE>
 <BODY>
 <h1>Login</h1>
-<form method="post" action="<?php session_start(); echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
 
 Inserte un nombre
@@ -28,6 +28,7 @@ $error = null;
     $secretpassword = $stmt['clave'];
     $nif=$stmt['nif'];
     if ($username == $secretusername && $password == $secretpassword) {
+            session_start();
            $_SESSION['authenticated'] = true;
            $_SESSION['nif'] = $nif;
            header('Location: defecto.php');

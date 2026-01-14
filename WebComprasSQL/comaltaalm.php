@@ -11,18 +11,13 @@ Inserte un nuevo almacén:
 <input type="submit" value="enviar">
 <input type="reset" value="borrar">
 <?php
+include "funciones_bdd.php";
 $convertir="";
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $almacen=test_input($_POST['almacen']);
-    
-    $servername = "localhost";
-    $username = "root";
-    $password = "rootroot";
-    $dbname = "comprasweb";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = conexion();
     $stmt2 = $conn->prepare("SELECT num_almacen FROM almacen");
     $stmt = $conn->prepare("INSERT INTO almacen (num_almacen,localidad) VALUES (:num_alm,:localidad)");
     $stmt->bindParam(':num_alm', $num_alm);

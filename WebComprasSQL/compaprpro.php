@@ -6,16 +6,10 @@
 <h1>NumProductos</h1>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <?php
-$convertir="";
-$servername = "localhost";
-$username = "root";
-$password = "rootroot";
-$dbname = "comprasweb";
-
+include "funciones_bdd.php";
 try {
     //Conexión con la base de datos
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = conexion();
     //Selecciono las categorías
     $stmt = $conn->prepare("SELECT id_producto,nombre FROM producto");
     $stmt->execute();
