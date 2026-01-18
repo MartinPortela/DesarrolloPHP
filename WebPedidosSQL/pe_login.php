@@ -6,9 +6,9 @@
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
 
-Inserte un nombre
-<input type='text' name='nombre' value='' size=9><br><br>
-Inserte la clave
+Inserte el usuario
+<input type='number' name='nombre' value='' size=3><br><br>
+Inserte el apellido
 <input type='text' name='apellido' value='' size=9><br><br>
 <input type="submit" value="enviar">
 <input type="reset" value="borrar">
@@ -22,18 +22,17 @@ $error = null;
     try {
     $conn=conexion();
     $stmt=prepararSelect($conn);
-    $secretusername = $username;
-    $secretpassword = $stmt['clave'];
-    $nif=$stmt['nif'];
-    if ($username == $secretusername && $password == $secretpassword) {
-            session_start();
-           $_SESSION['authenticated'] = true;
-           $_SESSION['nif'] = $nif;
-           header('Location: defecto.php');
-           return;
-       } else {
-           $error = 'Usuario o contraseña incorrectos';
-       }
+    if(!array_key_exists($cookie_name,$stmt)) echo "Usuario no existe";
+    else
+        {
+            if($stmt[$cookie_name]!=$cookie_name2) echo "Contraseña incorrecta";
+            else
+                {
+                    setcookie("usuario", $cookie_name, time() + (86400 * 30), "/");
+                    setcookie("password", $cookie_name2, time() + (86400 * 30), "/");
+                    header('Location: pe_inicio.php');
+                }
+        }
     } 
     catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
@@ -50,7 +49,8 @@ $error = null;
     $stmt = $conn->prepare("SELECT CustomerNumber,ContactLastName FROM Customers");
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_KEY_PAIR);
-    return $stmt;
+    $resultado=$stmt->fetchAll();
+    return $resultado;
    }
 
 
