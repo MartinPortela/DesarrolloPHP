@@ -197,6 +197,12 @@ function precioProd($conn,$prod)
 <input type="submit" value="Comprar Productos" name="comprar">
 <input type="submit" value="Agregar a la Cesta" name="agregar">
 <input type="submit" value="Limpiar la Cesta" name="limpiar">
+<input type="hidden" name="Ds_SignatureVersion" 
+        value="HMAC_SHA512_V2" />
+<input type="hidden" name="Ds_MerchantParameters"
+        value="eyJEU19NRVJDSEFOVF9PUkRFUiI6IjAwMDE0MzM4ejc0NCIsIkRTX01FUkNIQU5UX01FUkNIQU5UQ09ERSI6Ijk5OTAwODg4MSIsIkRTX01FUkNIQU5UX1RFUk1JTkFMIjoiMDAxIiwiRFNfTUVSQ0hBTlRfQ1VSUkVOQ1kiOiI5NzgiLCJEU19NRVJDSEFOVF9UUkFOU0FDVElPTlRZUEUiOiIwIiwiRFNfTUVSQ0hBTlRfQU1PVU5UIjoiMjQ5IiwiRFNfTUVSQ0hBTlRfTUVSQ0hBTlRVUkwiOiJodHRwOi8vd3d3LnBydWViYS5jb20vdXJsTm90aWZpY2FjaW9uLnBocCIsIkRTX01FUkNIQU5UX1VSTE9LIjoiaHR0cDovL3d3dy5wcnVlYmEuY29tL3VybE9LLnBocCIsIkRTX01FUkNIQU5UX1VSTEtPIjoiaHR0cDovL3d3dy5wcnVlYmEuY29tL3VybEtPLnBocCJ9" />
+<input type="hidden" name="Ds_Signature"
+        value="DfXW23aJNwzzLH2IoV5c9YiRKOf4cUgTbd4XtDIxDM_P-XEr79S3cQy_GZUl6P2Sf-udXwRGI0_NoLJ3ChIJkg" />
 </div>
 <?php
     echo '</form>';
