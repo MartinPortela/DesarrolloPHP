@@ -1,11 +1,67 @@
 <?php 
 include 'funciones_bdd.php';
+include 'signatureUtils/signature.php';
+
+//Datos de configuración
+$version = "HMAC_SHA512_V2";
+$kc = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7'; //Clave recuperada de CANALES
+
+// Valores de entrada que no hemos cmbiado para ningun ejemplo
+$fuc = "999008881";
+$terminal = "1";
+$moneda = "978";
+$transactionType = "0";
+$signature = "";
+$order = str_pad(time(), 12, "0", STR_PAD_LEFT);
+
+$currentUrl = Utils::getCurrentUrl();
+$pos = strpos($currentUrl, basename(__FILE__));
+$urlOKKO = substr($currentUrl, 0, $pos) . "pruebaOk.php";
+$url = $urlOKKO; // URL para recibir notificaciones del pago
+
 if (isset($_COOKIE['cesta'])) {
-    // Deserializar la cesta de la cookie
-    $cestas = unserialize($_COOKIE['cesta']);
+     $order = str_pad(time(), 12, "0", STR_PAD_LEFT);
+    $sumTotal = 0;
+
+    foreach ($cestas as $prod => $cant) {
+        $precio = precioProd($conn, $prod);
+        $sumTotal += (int)$precio * (int)$cant;
+    }
+
+    $amount = $sumTotal * 100;
+
+    $data = [
+        "DS_MERCHANT_AMOUNT" => $amount,
+        "DS_MERCHANT_ORDER" => $order,
+        "DS_MERCHANT_MERCHANTCODE" => $fuc,
+        "DS_MERCHANT_CURRENCY" => $moneda,
+        "DS_MERCHANT_TRANSACTIONTYPE" => $transactionType,
+        "DS_MERCHANT_TERMINAL" => $terminal,
+        "DS_MERCHANT_MERCHANTURL" => $urlOKKO,
+        "DS_MERCHANT_URLOK" => $urlOKKO,
+        "DS_MERCHANT_URLKO" => $urlOKKO
+    ];
+
+    $params = Utils::base64_url_encode_safe(json_encode($data));
+    $signature = Signature::createMerchantSignature($kc, $params, $order);
+    //Preparo el número de productos, ordenados por su ID
+    $data = array(
+	"DS_MERCHANT_AMOUNT" => $amount,
+	"DS_MERCHANT_ORDER" => $order,
+	"DS_MERCHANT_MERCHANTCODE" => $fuc,
+	"DS_MERCHANT_CURRENCY" => $moneda,
+	"DS_MERCHANT_TRANSACTIONTYPE" => $transactionType,
+	"DS_MERCHANT_TERMINAL" => $terminal,
+	"DS_MERCHANT_MERCHANTURL" => $url,
+	"DS_MERCHANT_URLOK" => $urlOKKO,
+	"DS_MERCHANT_URLKO" => $urlOKKO
+    );
+    $params = Utils::base64_url_encode_safe(json_encode($data));
 } else {
     $cestas = [];
 }
+
+
 var_dump($cestas);
 try {
     //Conexión con la base de datos
@@ -13,7 +69,6 @@ try {
     //Selecciono los productos
     $productos=seleccionarProductos($conn);
     $almacenes=cantidadProductos($conn);
-    //Preparo el número de productos, ordenados por su ID
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -52,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		   echo "No se han elegido productos";
 		else
             {
+                $signature = Signature::createMerchantSignature($kc, $params, $order);
                 foreach ($cestas as $cesta => $valor) 
                 {
                    if($valor>$almacenes[$cesta])
@@ -179,7 +235,7 @@ function precioProd($conn,$prod)
 </HEAD>
 <BODY>
 <h1>Comprar productos</h1>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form method="post" action="https://sis-t.redsys.es:25443/sis/realizarPago">
 <div>
 	<label for="productos">Producto:</label>
 	<select name="productos">
@@ -189,20 +245,20 @@ function precioProd($conn,$prod)
 	</select>
     <label for="cantidad">Cantidad:</label>
 			<input type="number" name="cantidad">
-    <label for="numPago">Número de pago:</label>
-			<input type="text" name="numPago">
 </div>
 </BR>
 <div>
-<input type="submit" value="Comprar Productos" name="comprar">
 <input type="submit" value="Agregar a la Cesta" name="agregar">
 <input type="submit" value="Limpiar la Cesta" name="limpiar">
-<input type="hidden" name="Ds_SignatureVersion" 
-        value="HMAC_SHA512_V2" />
-<input type="hidden" name="Ds_MerchantParameters"
-        value="eyJEU19NRVJDSEFOVF9PUkRFUiI6IjAwMDE0MzM4ejc0NCIsIkRTX01FUkNIQU5UX01FUkNIQU5UQ09ERSI6Ijk5OTAwODg4MSIsIkRTX01FUkNIQU5UX1RFUk1JTkFMIjoiMDAxIiwiRFNfTUVSQ0hBTlRfQ1VSUkVOQ1kiOiI5NzgiLCJEU19NRVJDSEFOVF9UUkFOU0FDVElPTlRZUEUiOiIwIiwiRFNfTUVSQ0hBTlRfQU1PVU5UIjoiMjQ5IiwiRFNfTUVSQ0hBTlRfTUVSQ0hBTlRVUkwiOiJodHRwOi8vd3d3LnBydWViYS5jb20vdXJsTm90aWZpY2FjaW9uLnBocCIsIkRTX01FUkNIQU5UX1VSTE9LIjoiaHR0cDovL3d3dy5wcnVlYmEuY29tL3VybE9LLnBocCIsIkRTX01FUkNIQU5UX1VSTEtPIjoiaHR0cDovL3d3dy5wcnVlYmEuY29tL3VybEtPLnBocCJ9" />
-<input type="hidden" name="Ds_Signature"
-        value="DfXW23aJNwzzLH2IoV5c9YiRKOf4cUgTbd4XtDIxDM_P-XEr79S3cQy_GZUl6P2Sf-udXwRGI0_NoLJ3ChIJkg" />
+<?php if (!empty($cestas)): ?>
+<form method="post" action="https://sis-t.redsys.es:25443/sis/realizarPago">
+    <input type="hidden" name="Ds_SignatureVersion" value="<?= $version ?>">
+    <input type="hidden" name="Ds_MerchantParameters" value="<?= $params ?>">
+    <input type="hidden" name="Ds_Merchant_Signature" value="<?= $signature ?>">
+
+    <input type="submit" value="Comprar">
+</form>
+<?php endif; ?>
 </div>
 <?php
     echo '</form>';
