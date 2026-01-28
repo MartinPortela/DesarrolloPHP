@@ -1,68 +1,6 @@
 <?php 
 include 'funciones_bdd.php';
 include 'signatureUtils/signature.php';
-
-//Datos de configuración
-$version = "HMAC_SHA512_V2";
-$kc = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7'; //Clave recuperada de CANALES
-
-// Valores de entrada que no hemos cmbiado para ningun ejemplo
-$fuc = "999008881";
-$terminal = "1";
-$moneda = "978";
-$transactionType = "0";
-$signature = "";
-$order = str_pad(time(), 12, "0", STR_PAD_LEFT);
-
-$currentUrl = Utils::getCurrentUrl();
-$pos = strpos($currentUrl, basename(__FILE__));
-$urlOKKO = substr($currentUrl, 0, $pos) . "pruebaOk.php";
-$url = $urlOKKO; // URL para recibir notificaciones del pago
-
-if (isset($_COOKIE['cesta'])) {
-     $order = str_pad(time(), 12, "0", STR_PAD_LEFT);
-    $sumTotal = 0;
-
-    foreach ($cestas as $prod => $cant) {
-        $precio = precioProd($conn, $prod);
-        $sumTotal += (int)$precio * (int)$cant;
-    }
-
-    $amount = $sumTotal * 100;
-
-    $data = [
-        "DS_MERCHANT_AMOUNT" => $amount,
-        "DS_MERCHANT_ORDER" => $order,
-        "DS_MERCHANT_MERCHANTCODE" => $fuc,
-        "DS_MERCHANT_CURRENCY" => $moneda,
-        "DS_MERCHANT_TRANSACTIONTYPE" => $transactionType,
-        "DS_MERCHANT_TERMINAL" => $terminal,
-        "DS_MERCHANT_MERCHANTURL" => $urlOKKO,
-        "DS_MERCHANT_URLOK" => $urlOKKO,
-        "DS_MERCHANT_URLKO" => $urlOKKO
-    ];
-
-    $params = Utils::base64_url_encode_safe(json_encode($data));
-    $signature = Signature::createMerchantSignature($kc, $params, $order);
-    //Preparo el número de productos, ordenados por su ID
-    $data = array(
-	"DS_MERCHANT_AMOUNT" => $amount,
-	"DS_MERCHANT_ORDER" => $order,
-	"DS_MERCHANT_MERCHANTCODE" => $fuc,
-	"DS_MERCHANT_CURRENCY" => $moneda,
-	"DS_MERCHANT_TRANSACTIONTYPE" => $transactionType,
-	"DS_MERCHANT_TERMINAL" => $terminal,
-	"DS_MERCHANT_MERCHANTURL" => $url,
-	"DS_MERCHANT_URLOK" => $urlOKKO,
-	"DS_MERCHANT_URLKO" => $urlOKKO
-    );
-    $params = Utils::base64_url_encode_safe(json_encode($data));
-} else {
-    $cestas = [];
-}
-
-
-var_dump($cestas);
 try {
     //Conexión con la base de datos
     $conn = conexion();
@@ -74,6 +12,57 @@ catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
     echo "Código de error: " . $e->getCode() . "<br>";
 }
+//Datos de configuración
+$version = "HMAC_SHA512_V2";
+$kc = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7'; //Clave recuperada de CANALES
+
+// Valores de entrada que no hemos cmbiado para ningun ejemplo
+$fuc = "263100000";
+$terminal = "72";
+$moneda = "978";
+$transactionType = "0";
+$signature = "";
+$order = str_pad(time(), 12, "0", STR_PAD_LEFT);
+
+$currentUrl = Utils::getCurrentUrl();
+$pos = strpos($currentUrl, basename(__FILE__));
+$urlOKKO = substr($currentUrl, 0, $pos) . "pruebaOk.php";
+$url = ""; // URL para recibir notificaciones del pago
+
+if (isset($_COOKIE['cesta'])) {
+    $cestas=unserialize($_COOKIE['cesta']);
+    $sumTotal = 0;
+
+    foreach ($cestas as $prod => $cant) {
+        $precio = precioProd($conn, $prod);
+        $sumTotal += (int)$precio * (int)$cant;
+    }
+
+    $amount = $sumTotal * 100;
+    //Preparo el número de productos, ordenados por su ID
+    
+    $data = array(
+	"DS_MERCHANT_AMOUNT" => $amount,
+	"DS_MERCHANT_ORDER" => $order,
+	"DS_MERCHANT_MERCHANTCODE" => $fuc,
+	"DS_MERCHANT_CURRENCY" => $moneda,
+	"DS_MERCHANT_TRANSACTIONTYPE" => $transactionType,
+	"DS_MERCHANT_TERMINAL" => $terminal,
+	"DS_MERCHANT_MERCHANTURL" => $url,
+	"DS_MERCHANT_URLOK" => $urlOKKO,
+	"DS_MERCHANT_URLKO" => $urlOKKO
+    );
+    var_dump($data);
+    $params = Utils::base64_url_encode_safe(json_encode($data));
+    var_dump($params);
+    $signature = Signature::createMerchantSignature($kc, $params, $order);
+    
+} else {
+    $cestas = [];
+}
+
+
+var_dump($cestas);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -82,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	  
 	    $producto = test_input($_POST['productos']);
         $cantidad = test_input((int)$_POST['cantidad']);
+        setcookie("numPago", test_input($_POST['numPago']), time() + (86400 * 30), "/");
 
         // Verifica si el producto ya está en la cesta
         if (array_key_exists($producto, $cestas)) {
@@ -101,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($cestas)) setcookie("cesta", "", time() - 3600, "/");
     }
     //Comprar
-    if (isset($_POST['comprar']) && !empty($_POST['comprar'])) {
+    /*if (isset($_POST['comprar']) && !empty($_POST['comprar'])) {
 	  
 	    if (!isset($_COOKIE['cesta'])) 
 		   echo "No se han elegido productos";
@@ -126,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             }   
 	       
-	}
+	}*/
 
 
 }
@@ -235,7 +225,7 @@ function precioProd($conn,$prod)
 </HEAD>
 <BODY>
 <h1>Comprar productos</h1>
-<form method="post" action="https://sis-t.redsys.es:25443/sis/realizarPago">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <div>
 	<label for="productos">Producto:</label>
 	<select name="productos">
@@ -245,23 +235,27 @@ function precioProd($conn,$prod)
 	</select>
     <label for="cantidad">Cantidad:</label>
 			<input type="number" name="cantidad">
+    <label for="numPago">Cantidad:</label>
+			<input type="text" name="numPago">
 </div>
 </BR>
 <div>
 <input type="submit" value="Agregar a la Cesta" name="agregar">
 <input type="submit" value="Limpiar la Cesta" name="limpiar">
-<?php if (!empty($cestas)): ?>
-<form method="post" action="https://sis-t.redsys.es:25443/sis/realizarPago">
-    <input type="hidden" name="Ds_SignatureVersion" value="<?= $version ?>">
-    <input type="hidden" name="Ds_MerchantParameters" value="<?= $params ?>">
-    <input type="hidden" name="Ds_Merchant_Signature" value="<?= $signature ?>">
-
-    <input type="submit" value="Comprar">
 </form>
+<?php if (isset($params)): ?>
+<form name="frm" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
+			Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="<?php echo $version; ?>"/></br>
+			Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="<?php echo $params; ?>"/></br>
+			Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="<?php echo $signature; ?>"/></br>
+			<input type="submit" value="Enviar" >
+</form>
+
 <?php endif; ?>
+
 </div>
 <?php
-    echo '</form>';
+    
     echo '<form method="post" action="logout.php">
     <input type="submit" value="Cerrar sesión">
     </form>';
