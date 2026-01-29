@@ -16,19 +16,23 @@ catch(PDOException $e) {
 $version = "HMAC_SHA512_V2";
 $kc = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7'; //Clave recuperada de CANALES
 
-// Valores de entrada que no hemos cmbiado para ningun ejemplo
-$fuc = "263100000";
-$terminal = "72";
+// Valores de entrada estándar
+$fuc = "999008881";
+$terminal = "001";
 $moneda = "978";
 $transactionType = "0";
 $signature = "";
+//Order será el tiempo
 $order = str_pad(time(), 12, "0", STR_PAD_LEFT);
 
+//Mi url de ahora mismo
 $currentUrl = Utils::getCurrentUrl();
 $pos = strpos($currentUrl, basename(__FILE__));
+//URL de que la compra ha salido bien
 $urlOKKO = substr($currentUrl, 0, $pos) . "pruebaOk.php";
 $url = ""; // URL para recibir notificaciones del pago
-
+//URL de que la compra ha salido mal
+$urlKO= substr($currentUrl, 0, $pos) . "pruebaKO.php";
 if (isset($_COOKIE['cesta'])) {
     $cestas=unserialize($_COOKIE['cesta']);
     $sumTotal = 0;
@@ -50,7 +54,7 @@ if (isset($_COOKIE['cesta'])) {
 	"DS_MERCHANT_TERMINAL" => $terminal,
 	"DS_MERCHANT_MERCHANTURL" => $url,
 	"DS_MERCHANT_URLOK" => $urlOKKO,
-	"DS_MERCHANT_URLKO" => $urlOKKO
+	"DS_MERCHANT_URLKO" => $urlKO,
     );
     var_dump($data);
     $params = Utils::base64_url_encode_safe(json_encode($data));
@@ -235,7 +239,7 @@ function precioProd($conn,$prod)
 	</select>
     <label for="cantidad">Cantidad:</label>
 			<input type="number" name="cantidad">
-    <label for="numPago">Cantidad:</label>
+    <label for="numPago">Número de pago:</label>
 			<input type="text" name="numPago">
 </div>
 </BR>
@@ -243,7 +247,7 @@ function precioProd($conn,$prod)
 <input type="submit" value="Agregar a la Cesta" name="agregar">
 <input type="submit" value="Limpiar la Cesta" name="limpiar">
 </form>
-<?php if (isset($params)): ?>
+<?php /*Formulario que solo se crea si hay parámetros, se enviará la información a redsys*/ if (isset($params)): ?>
 <form name="frm" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
 			Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="<?php echo $version; ?>"/></br>
 			Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="<?php echo $params; ?>"/></br>

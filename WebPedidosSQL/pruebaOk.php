@@ -1,11 +1,10 @@
 <?php
+include 'signatureUtils/signature.php';
 include 'funciones_bdd.php';
 if (isset($_COOKIE['cesta'])) {
     $cestas=unserialize($_COOKIE['cesta']);
 }
 $conn=conexion();
-include 'signatureUtils/signature.php';
-
 $jsonParams = json_decode(file_get_contents('php://input'), true);
 $receivedParams = array_merge($_GET, $_POST, is_array($jsonParams) ? $jsonParams : []);
 
@@ -28,8 +27,11 @@ echo PHP_VERSION."<br/>";
 echo $firma."<br/>";
 echo $signatureRecibida."<br/>";
 try {
+
+    //Si sale bien la firma, se realiza la compra y se actualiza la base de datos
 	Signature::checkSignatures($signatureRecibida, $firma);
 	introducirCompra($conn,$cestas);
+    setcookie("cesta", "", time() - 3600, "/");
 	echo("FIRMA OK");
 	
 } catch (Exception $e) {
