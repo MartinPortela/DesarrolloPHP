@@ -34,7 +34,8 @@ try {
     setcookie("cesta", "", time() - 3600, "/");
 	echo("FIRMA OK");
 	
-} catch (Exception $e) {
+} catch (Exception $e) {magnolia
+
 	echo("FIRMA KO");
 }
 
