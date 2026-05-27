@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UT4 P1 - Tecnologías multimedia e interactivas</title>
+  <link rel="stylesheet" href="css/p41_styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>UT4 · Práctica 1 — Mapa de tecnologías multimedia e interactivas</h1>
+      <p class="meta">
+        Alumno/a: <strong>Martín Portela Seguí</strong> · Curso: <strong>2º DAW</strong> · Módulo: <strong>DIW</strong>
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" aria-labelledby="intro">
+      <h2 id="intro">Introducción</h2>
+      
+    </section>
+
+    <nav class="card index" aria-labelledby="indice">
+      <h2>Índice</h2>
+      
+    </nav>
+
+    <!-- =========================
+         1) Audio y vídeo HTML5
+    ========================== -->
+    <section class="card tech" id="html5-media" aria-labelledby="t-html5-media">
+      <h2 id="t-html5-media">1. Audio y vídeo en HTML5</h2>
+
+      <h3>Qué es / para qué sirve</h3>
+      <p>Sirve para insertar audios y vídeos en nuestra página web para permitir interactividad.</p>
+      <h3>Casos de uso típicos</h3>
+      <ul>
+        <li>Reproductores de música</li>
+        <li>Para mostrar el adelanto de una película en nuestra página de cine</li>
+        <li>Notificaciones sonoras</li>
+        <li>Podcasts y audiolibros</li>
+      </ul>
+    
+      <div class="cols">
+        <div>
+          <h3>Ventajas</h3>
+          <ul>
+          <li>No requiere plugins externos</li>
+          <li>Compatibilidad multiplataforma</li>
+          <li>Integración sencilla</li>
+          <li>Accesibilidad</li>
+          <li>Soporte responsive</li>
+        </ul>
+        </div>
+        <div>
+          <h3>Limitaciones</h3>
+          <ul>
+          <li>Dependencia del ancho de banda</li>
+          <li>Restricciones de autoplay</li>
+          <li>Se queda corto para el streaming avanzado</li>
+          <li>Protección de contenido limitada</li>
+        </ul>
+        </div>
+      </div>
+
+      <h3>Ejemplos reales (webs conocidas)</h3>
+
+      <p>Vimeo, Soundcloud y Discord</p>
+    
+      <h3>Conclusión personal</h3>
+      <p>Usaría HTML5 para crear páginas web modernas e interactivas porque permite integrar audio y vídeo sin plugins externos,
+        también resulta útil por su utilidad para hacerlo compatible con móviles y distintos navegadores añadido a su facilidad
+        de implementación. Es ideal para aplicaciones web dinámicas gracias a su integración con JavaScript y CSS, finalmente, 
+        facilita el desarrollo web porque es un estándar moderno, rápido y ampliamente soportado.
+      </p>
+    </section>
+
+    <!-- =========================
+         2) Canvas
+    ========================== -->
+    <section class="card tech" id="canvas" aria-labelledby="t-canvas">
+      <h2 id="t-canvas">2. Canvas</h2>
+
+      <h3>Qué es / para qué sirve</h3>
+      <p>Define canvas y qué tipo de gráficos/interacciones permite.</p>
+     <p> El elemento canvas de HTML5 es un área de dibujo que permite crear gráficos y animaciones dinámicamente mediante JavaScript.
+      Funciona como una “superficie en blanco” donde el programador puede dibujar y actualizar contenido en tiempo real.</p>
+      <p>Permite crear gráficos 2D y 3D, animaciones, videojuegos, visualización de datos, editores de imágenes y simulaciones interactivas.</p>
+
+      <h3>Casos de uso típicos</h3>
+      <ul>
+        <li>Videojuegos web</li>
+        <li>Gráficos y visualización de datos</li>
+        <li>Animaciones y efectos visuales</li>
+        <li>Mapas y geolocalización interactiva</li>
+      </ul>
+      <div class="cols">
+        <div>
+          <h3>Ventajas</h3>
+          <ul>
+            <li>Alto rendimiento</li>
+            <li>Gran flexibilidad</li>
+            <li>Integración con JavaScript</li>
+            <li>Compatible con navegadores modernos</li>
+            <li>Experiencias visuales interactivas</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Limitaciones</h3>
+          <ul>
+            <li>Accesibilidad limitada</li>
+            <li>Consumo de recursos</li>
+            <li>Requiere más programación</li>
+            <li>Mantenimiento más complejo</li>
+            <li>No ideal para interfaces tradicionales</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Ejemplos reales (webs conocidas)</h3>
+      <p>Agar.io, Youtube y Spotify</p>
+
+      <h3>Conclusión personal</h3>
+      <p>Elegiría Canvas frente a SVG o HTML cuando necesito trabajar con gráficos muy dinámicos o en tiempo real, como videojuegos, simulaciones o visualizaciones con muchos elementos que cambian constantemente. 
+        Esto es porque Canvas dibuja píxeles directamente en una superficie, lo que le da muy buen rendimiento cuando hay muchas actualizaciones por segundo.</p>
+    </section>
+
+   <!-- =========================
+     3) SVG
+========================== -->
+<section class="card tech" id="svg" aria-labelledby="t-svg">
+  <h2 id="t-svg">3. SVG</h2>
+
+  <h3>Qué es / para qué sirve</h3>
+  <p>
+    SVG (Scalable Vector Graphics) es un formato gráfico vectorial basado en XML
+    que permite crear imágenes escalables sin perder calidad.
+    Es muy útil para iconos, logos, ilustraciones, gráficos y animaciones
+    porque puede adaptarse a cualquier resolución o tamaño de pantalla.
+  </p>
+
+  <h3>Casos de uso típicos</h3>
+  <ul>
+    <li>Logotipos e iconos</li>
+    <li>Gráficos y diagramas</li>
+    <li>Mapas interactivos</li>
+    <li>Animaciones vectoriales</li>
+    <li>Interfaces responsive</li>
+  </ul>
+
+  <div class="cols">
+    <div>
+      <h3>Ventajas</h3>
+      <ul>
+        <li>Escalable sin pérdida de calidad</li>
+        <li>Poco peso en gráficos simples</li>
+        <li>Accesible y compatible con SEO</li>
+        <li>Permite animaciones</li>
+        <li>Fácil integración con CSS y JavaScript</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>No ideal para gráficos muy complejos</li>
+        <li>Puede perder rendimiento con muchos elementos</li>
+        <li>Más difícil para imágenes realistas</li>
+        <li>Animaciones complejas requieren más trabajo</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Ejemplos reales (webs conocidas)</h3>
+  <p>Wikipedia, GitHub y Google Maps</p>
+
+  <h3>Conclusión personal</h3>
+  <p>
+    Usaría SVG cuando necesite gráficos escalables y ligeros como iconos,
+    logotipos o ilustraciones responsive. También lo elegiría para gráficos
+    interactivos o animaciones simples porque mantiene buena calidad en cualquier
+    resolución y se integra fácilmente con CSS y JavaScript.
+  </p>
+</section>
+
+<!-- =========================
+     4) CSS Animations/Transitions
+========================== -->
+<section class="card tech" id="css-anim" aria-labelledby="t-css-anim">
+  <h2 id="t-css-anim">4. CSS Animations / Transitions</h2>
+
+  <h3>Qué es / para qué sirve</h3>
+  <p>
+    Las transiciones y animaciones CSS permiten crear efectos visuales e
+    interacciones dinámicas sin necesidad de JavaScript.
+  </p>
+
+  <p>
+    Las transiciones cambian suavemente una propiedad entre dos estados,
+    mientras que las animaciones permiten movimientos y efectos más complejos
+    mediante keyframes.
+  </p>
+
+  <h3>Casos de uso típicos</h3>
+  <ul>
+    <li>Efectos hover en botones</li>
+    <li>Menús desplegables</li>
+    <li>Animaciones de carga</li>
+    <li>Transiciones entre elementos</li>
+    <li>Interfaces modernas e interactivas</li>
+  </ul>
+
+  <div class="cols">
+    <div>
+      <h3>Ventajas</h3>
+      <ul>
+        <li>Fáciles de implementar</li>
+        <li>Buen rendimiento</li>
+        <li>No requieren JavaScript</li>
+        <li>Código más limpio</li>
+        <li>Compatibles con navegadores modernos</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>Menos flexibles que JavaScript</li>
+        <li>Animaciones complejas son difíciles</li>
+        <li>Compatibilidad parcial en navegadores antiguos</li>
+        <li>Limitadas para lógica avanzada</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Ejemplos reales (webs conocidas)</h3>
+  <p>Apple, Netflix y Airbnb</p>
+
+  <h3>Conclusión personal</h3>
+  <p>
+    Usaría CSS Animations y Transitions para efectos visuales sencillos y
+    animaciones ligeras porque ofrecen buen rendimiento y un código más limpio.
+    Las elegiría frente a JavaScript cuando la animación no necesite lógica
+    compleja ni interacción avanzada.
+  </p>
+</section>
+
+<!-- =========================
+     5) JavaScript Interactividad
+========================== -->
+<section class="card tech" id="js-interactividad" aria-labelledby="t-js">
+  <h2 id="t-js">5. JavaScript para interactividad</h2>
+
+  <h3>Qué es / para qué sirve</h3>
+  <p>
+    JavaScript permite añadir interactividad a las páginas web respondiendo
+    a eventos del usuario y modificando el DOM dinámicamente.
+  </p>
+
+  <p>
+    Gracias a JavaScript se pueden crear aplicaciones web dinámicas,
+    validar formularios, mostrar contenido en tiempo real y controlar
+    elementos multimedia.
+  </p>
+
+  <h3>Casos de uso típicos</h3>
+  <ul>
+    <li>Validación de formularios</li>
+    <li>Menús interactivos</li>
+    <li>Aplicaciones SPA</li>
+    <li>Videojuegos web</li>
+    <li>Actualización dinámica de contenido</li>
+  </ul>
+
+  <div class="cols">
+    <div>
+      <h3>Ventajas</h3>
+      <ul>
+        <li>Alta interactividad</li>
+        <li>Compatible con todos los navegadores modernos</li>
+        <li>Gran flexibilidad</li>
+        <li>Permite modificar el DOM en tiempo real</li>
+        <li>Compatible con APIs modernas</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Limitaciones</h3>
+      <ul>
+        <li>Puede afectar al rendimiento</li>
+        <li>Mayor complejidad del código</li>
+        <li>Problemas de seguridad si se usa mal</li>
+        <li>Dependencia del navegador del usuario</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Ejemplos reales (webs conocidas)</h3>
+  <p>Facebook, YouTube y Gmail</p>
+
+  <h3>Conclusión personal</h3>
+  <p>
+    Usaría JavaScript cuando necesite interactividad avanzada o modificar
+    contenido dinámicamente. Sin embargo, evitaría usarlo para tareas simples
+    que puedan resolverse con HTML o CSS para mantener un mejor rendimiento
+    y un código más sencillo.
+  </p>
+</section>
+
+<!-- =========================
+     6) APIs relacionadas
+========================== -->
+<section class="card tech" id="apis" aria-labelledby="t-apis">
+  <h2 id="t-apis">6. APIs relacionadas</h2>
+
+  <p class="hint">
+    Incluye <strong>mínimo 2 APIs</strong>
+  </p>
+
+  <article class="subcard">
+    <h3>API 1: WebRTC</h3>
+
+    <p>
+      <strong>Qué hace:</strong>
+      Permite comunicación en tiempo real de audio, vídeo y datos entre navegadores.
+    </p>
+
+    <p>
+      <strong>Casos de uso:</strong>
+      Videollamadas, chats de voz, streaming y compartir pantalla.
+    </p>
+
+    <p>
+      <strong>Ejemplos reales:</strong>
+      Google Meet, Discord y Zoom.
+    </p>
+
+    <p>
+      <strong>Conclusión personal:</strong>
+      Es una API muy útil para aplicaciones de comunicación en tiempo real
+      porque permite crear videollamadas directamente desde el navegador
+      sin instalar programas externos.
+    </p>
+  </article>
+
+  <article class="subcard">
+    <h3>API 2: Web Audio API</h3>
+
+    <p>
+      <strong>Qué hace:</strong>
+      Permite procesar y manipular audio en tiempo real mediante JavaScript.
+    </p>
+
+    <p>
+      <strong>Casos de uso:</strong>
+      Visualizadores de audio, efectos sonoros, sintetizadores y videojuegos.
+    </p>
+
+    <p>
+      <strong>Ejemplos reales:</strong>
+      Spotify, SoundCloud y juegos web interactivos.
+    </p>
+
+    <p>
+      <strong>Conclusión personal:</strong>
+      Usaría esta API para proyectos multimedia interactivos porque ofrece
+      mucho control sobre el audio y permite crear experiencias dinámicas.
+    </p>
+  </article>
+
+  <article class="subcard">
+    <h3>API 3: MediaRecorder API</h3>
+
+    <p>
+      <strong>Qué hace:</strong>
+      Permite grabar audio y vídeo directamente desde el navegador.
+    </p>
+
+    <p>
+      <strong>Casos de uso:</strong>
+      Grabación de videollamadas, notas de voz y captura multimedia.
+    </p>
+
+    <p>
+      <strong>Ejemplos reales:</strong>
+      Loom y aplicaciones de grabación online.
+    </p>
+
+    <p>
+      <strong>Conclusión personal:</strong>
+      Me parece útil para aplicaciones multimedia modernas porque facilita
+      la grabación de contenido sin instalar software adicional.
+    </p>
+  </article>
+</section>
+
+<!-- =========================
+     Tabla comparativa final
+========================== -->
+<section class="card" id="tabla" aria-labelledby="t-tabla">
+  <h2 id="t-tabla">Tabla comparativa</h2>
+
+  <div class="table-wrap" role="region" aria-label="Tabla comparativa" tabindex="0">
+    <table>
+      <thead>
+        <tr>
+          <th>Tecnología</th>
+          <th>Mejor para…</th>
+          <th>Dificultad</th>
+          <th>Compatibilidad</th>
+          <th>Ejemplo real</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>HTML5 Media</td>
+          <td>Audio y vídeo</td>
+          <td>Media</td>
+          <td>Alta</td>
+          <td>YouTube</td>
+        </tr>
+
+        <tr>
+          <td>Canvas</td>
+          <td>Videojuegos y gráficos dinámicos</td>
+          <td>Alta</td>
+          <td>Alta</td>
+          <td>Agar.io</td>
+        </tr>
+
+        <tr>
+          <td>SVG</td>
+          <td>Gráficos vectoriales</td>
+          <td>Media</td>
+          <td>Alta</td>
+          <td>Wikipedia</td>
+        </tr>
+
+        <tr>
+          <td>CSS Animations</td>
+          <td>Animaciones simples</td>
+          <td>Baja</td>
+          <td>Alta</td>
+          <td>Airbnb</td>
+        </tr>
+
+        <tr>
+          <td>JavaScript</td>
+          <td>Interactividad avanzada</td>
+          <td>Alta</td>
+          <td>Alta</td>
+          <td>Gmail</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    <a class="back-top" href="#intro">⬆ Volver arriba</a>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>DIW · UT4 · Práctica 1 </p>
+    </div>
+  </footer>
+</body>
+</html>
